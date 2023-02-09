@@ -18,12 +18,15 @@ const SDKConfigBuilder =
 const ProxyBuilder =
   require("@zohocrm/nodejs-sdk-2.0/routes/proxy_builder").ProxyBuilder;
 
+require("dotenv").config();
+
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const CLIENT_EMAIL = process.env.CLIENT_EMAIL;
 const CLIENT_NAME = process.env.CLIENT_NAME;
 const GRANT_TOKEN = process.env.GRANT_TOKEN;
 const REDIRECT_URL = process.env.REDIRECT_URL;
+const USER_DIR = `C://Users/${CLIENT_NAME}`;
 
 class Initializer {
   static async initialize() {
@@ -34,7 +37,7 @@ class Initializer {
      */
     let logger = new LogBuilder()
       .level(Levels.INFO)
-      .filePath(`/Users/${CLIENT_NAME}/node_sdk_log.log`)
+      .filePath(`${USER_DIR}/node_sdk_log.log`)
       .build();
 
     /*
@@ -66,6 +69,7 @@ class Initializer {
       .grantToken(GRANT_TOKEN)
       .redirectURL(REDIRECT_URL)
       .build();
+
     /*
      * hostName -> DataBase host name. Default value "localhost"
      * databaseName -> DataBase name. Default  value "zohooauth"
@@ -77,7 +81,7 @@ class Initializer {
     const FileStore =
       require("@zohocrm/nodejs-sdk-2.0/models/authenticator/store/file_store").FileStore;
 
-    let tokenstore = new FileStore(`/Users/${CLIENT_NAME}/tokenstore.log`);
+    let tokenstore = new FileStore(`${USER_DIR}/tokenstore.log`);
 
     /*
      * autoRefreshFields
@@ -97,7 +101,7 @@ class Initializer {
     /*
      * The path containing the absolute directory path to store user specific JSON files containing module fields information.
      */
-    let resourcePath = `/Users/${CLIENT_NAME}/zoho`;
+    let resourcePath = `${USER_DIR}/zoho`;
 
     /*
      * Call the static initialize method of Initializer class that takes the following arguments
