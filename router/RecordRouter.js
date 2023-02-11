@@ -12,7 +12,7 @@ router.get("/:module/", async (req, res) => {
     const records = await recordController.getRecords(module);
     res.status(200).json(records);
   } catch (error) {
-    res.status(500).json({
+    res.status(400).json({
       error: error.message,
     });
   }
@@ -26,7 +26,35 @@ router.get("/:module/create", async (req, res) => {
       success: "A record is created successfully!",
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+});
+
+router.get("/:module/update/:recordId", async (req, res) => {
+  const module = req.params.module.capitalize();
+  try {
+    await recordController.updateRecord(module, req.params.recordId, req.query);
+    res.status(200).json({
+      success: "A record is updated successfully!",
+    });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+});
+
+router.get("/:module/delete/:recordId", async (req, res) => {
+  const module = req.params.module.capitalize();
+  try {
+    await recordController.deleteRecord(module, req.params.recordId);
+    res.status(200).json({
+      success: "A record is deleted successfully!",
+    });
+  } catch (error) {
+    res.status(400).json({
       error: error.message,
     });
   }

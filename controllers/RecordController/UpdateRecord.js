@@ -6,12 +6,13 @@ const RecordField = require(`${SDK_API}/record/field`).Field;
 const ZCRMRecord = require(`${SDK_API}/record/record`).MasterModel;
 
 /**
- *  Create Record
- * This method is used to create a record of a module and send the response.
+ *  Update Records
+ * This method is used to update the records of a module with ID and print the response.
  * @param {String} module
+ * @param {String} recordId
  * @param {Object} query
  */
-const createRecord = async (module, query) => {
+const updateRecord = async (module, recordId, query) => {
   //Get instance of RecordOperations Class
   const recordOperations = new RecordOperations();
 
@@ -32,6 +33,9 @@ const createRecord = async (module, query) => {
     Field = RecordField.Contacts;
   }
 
+  //ID of the record to be updated
+  record.setId(BigInt(recordId));
+
   //Throws an error when the full name is not specified
   if (!query.firstname || !query.lastname) {
     throw new Error("First name and last name must be specified!");
@@ -43,8 +47,8 @@ const createRecord = async (module, query) => {
    * 1 -> Call Field `.` and choose the module from the displayed list and press `.` and choose the field name from the displayed list.
    * 2 -> Value
    */
-  record.addFieldValue(Field.LAST_NAME, query.lastname);
   record.addFieldValue(Field.FIRST_NAME, query.firstname);
+  record.addFieldValue(Field.LAST_NAME, query.lastname);
   record.addFieldValue(Field.PHONE, query.phone);
   record.addFieldValue(Field.MOBILE, query.mobile);
   record.addKeyValue(`Email`, query.email);
@@ -58,7 +62,7 @@ const createRecord = async (module, query) => {
   //Get instance of HeaderMap Class
   const headerInstance = new HeaderMap();
 
-  //Call createRecords method that takes BodyWrapper instance and module as parameters
-  await recordOperations.createRecords(module, request, headerInstance);
+  //Call updateRecords method that takes BodyWrapper instance and moduleAPIName as parameter.
+  await recordOperations.updateRecords(module, request, headerInstance);
 };
-module.exports = createRecord;
+module.exports = updateRecord;
