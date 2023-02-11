@@ -39,7 +39,7 @@ https://api-console.zoho.com/
     ex: http://localhost:3030/leads/create?firstname=Charles&lastname=Bell&email=charles@gmail.com&phone=5553233&mobile=2322333
 
 - Read records
-    `https://{domain_address}/{module}/`
+    `https://{domain_address}/{module}/`  
     ex: http://localhost:3030/contacts/ 
 
 - Update a record
