@@ -10,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/", recordRouter);
 
+// Initialize SDK to access the CRM services
 Initializer.initialize();
 
 app.listen(PORT, () => {
