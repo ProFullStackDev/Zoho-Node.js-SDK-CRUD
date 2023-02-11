@@ -8,11 +8,14 @@ https://crm.zoho.com/
 - Create a Zoho API Console account.  
 https://api-console.zoho.com/
 - Download and Install Node.exe
+- Make an empty folder named `zoho` in the User Directory  
+    ✓ Windows: C://Users/{UserName}/zoho  
+    ✓ Linux: home/{UserName}/zoho
 
 ### 2. How to run the code
 - Setting environment variables( .env )
 
-    - `CLIENT_ID, CLIENT_SECRET, GRANT_TOKEN` from Zoho Console API
+    - `CLIENT_ID, CLIENT_SECRET, GRANT_TOKEN` from Zoho Console API  
     Create a self client and generate code by using  
     ✓ Scope: ZohoCRM.module.ALL,ZohoCRM.settings.ALL,ZohoCRM.coql.READ  
     ✓ Time Duration: 3, 5min  
