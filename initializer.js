@@ -1,24 +1,14 @@
-const InitializeBuilder =
-  require("@zohocrm/nodejs-sdk-2.0/routes/initialize_builder").InitializeBuilder;
-const OAuthBuilder =
-  require("@zohocrm/nodejs-sdk-2.0/models/authenticator/oauth_builder").OAuthBuilder;
-const UserSignature =
-  require("@zohocrm/nodejs-sdk-2.0/routes/user_signature").UserSignature;
-const Levels = require("@zohocrm/nodejs-sdk-2.0/routes/logger/logger").Levels;
-const LogBuilder =
-  require("@zohocrm/nodejs-sdk-2.0/routes/logger/log_builder").LogBuilder;
-const USDataCenter =
-  require("@zohocrm/nodejs-sdk-2.0/routes/dc/us_data_center").USDataCenter;
-const DBBuilder =
-  require("@zohocrm/nodejs-sdk-2.0/models/authenticator/store/db_builder").DBBuilder;
-const FileStore =
-  require("@zohocrm/nodejs-sdk-2.0/models/authenticator/store/file_store").FileStore;
-const SDKConfigBuilder =
-  require("@zohocrm/nodejs-sdk-2.0/routes/sdk_config_builder").SDKConfigBuilder;
-const ProxyBuilder =
-  require("@zohocrm/nodejs-sdk-2.0/routes/proxy_builder").ProxyBuilder;
+const { SDK, LOCAL_BASE_DIR } = require("./config");
+const { InitializeBuilder } = require(`${SDK}/routes/initialize_builder`);
+const { OAuthBuilder } = require(`${SDK}/models/authenticator/oauth_builder`);
+const { UserSignature } = require(`${SDK}/routes/user_signature`);
+const { Levels } = require(`${SDK}/routes/logger/logger`);
+const { LogBuilder } = require(`${SDK}/routes/logger/log_builder`);
+const { USDataCenter } = require(`${SDK}/routes/dc/us_data_center`);
+const { SDKConfigBuilder } = require(`${SDK}/routes/sdk_config_builder`);
+const { FileStore } = require(`${SDK}/models/authenticator/store/file_store`);
 
-require("dotenv").config();
+require(`dotenv`).config();
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -26,16 +16,16 @@ const CLIENT_EMAIL = process.env.CLIENT_EMAIL;
 const CLIENT_NAME = process.env.CLIENT_NAME;
 const GRANT_TOKEN = process.env.GRANT_TOKEN;
 const REDIRECT_URL = process.env.REDIRECT_URL;
-const USER_DIR = `C://Users/${CLIENT_NAME}`;
+const USER_DIR = `${LOCAL_BASE_DIR}/${CLIENT_NAME}`;
 
 class Initializer {
   static async initialize() {
     /*
      * Create an instance of Logger Class that takes two parameters
-     * level -> Level of the log messages to be logged. Can be configured by typing Levels "." and choose any level from the list displayed.
+     * level -> Level of the log messages to be logged. Can be configured by typing Levels `.` and choose any level from the list displayed.
      * filePath -> Absolute file path, where messages need to be logged.
      */
-    let logger = new LogBuilder()
+    const logger = new LogBuilder()
       .level(Levels.INFO)
       .filePath(`${USER_DIR}/node_sdk_log.log`)
       .build();
@@ -43,7 +33,7 @@ class Initializer {
     /*
      * Create an UserSignature instance that takes user Email as parameter
      */
-    let user = new UserSignature(CLIENT_EMAIL);
+    const user = new UserSignature(CLIENT_EMAIL);
 
     /*
      * Configure the environment
@@ -51,7 +41,7 @@ class Initializer {
      * Available Domains: USDataCenter, EUDataCenter, INDataCenter, CNDataCenter, AUDataCenter
      * Available Environments: PRODUCTION(), DEVELOPER(), SANDBOX()
      */
-    let environment = USDataCenter.PRODUCTION();
+    const environment = USDataCenter.PRODUCTION();
 
     /*
      * Create a Token instance that requires the following
@@ -63,7 +53,7 @@ class Initializer {
      * redirectURL -> OAuth redirect URL.
      */
     // if ID (obtained from persistence) is available
-    let token = new OAuthBuilder()
+    const token = new OAuthBuilder()
       .clientId(CLIENT_ID)
       .clientSecret(CLIENT_SECRET)
       .grantToken(GRANT_TOKEN)
@@ -71,17 +61,14 @@ class Initializer {
       .build();
 
     /*
-     * hostName -> DataBase host name. Default value "localhost"
-     * databaseName -> DataBase name. Default  value "zohooauth"
-     * userName -> DataBase user name. Default value "root"
-     * password -> DataBase password. Default value ""
-     * portNumber -> DataBase port number. Default value "3306"
-     * tableName -> Table Name. Default value "oauthtoken"
+     * hostName -> DataBase host name. Default value `localhost`
+     * databaseName -> DataBase name. Default  value `zohooauth`
+     * userName -> DataBase user name. Default value `root`
+     * password -> DataBase password. Default value ``
+     * portNumber -> DataBase port number. Default value `3306`
+     * tableName -> Table Name. Default value `oauthtoken`
      */
-    const FileStore =
-      require("@zohocrm/nodejs-sdk-2.0/models/authenticator/store/file_store").FileStore;
-
-    let tokenstore = new FileStore(`${USER_DIR}/tokenstore.log`);
+    const tokenstore = new FileStore(`${USER_DIR}/tokenstore.log`);
 
     /*
      * autoRefreshFields
@@ -93,7 +80,7 @@ class Initializer {
      * if true - the SDK validates the input. If the value does not exist in the pick list, the SDK throws an error.
      * if false - the SDK does not validate the input and makes the API request with the user’s input to the pick list
      */
-    let sdkConfig = new SDKConfigBuilder()
+    const sdkConfig = new SDKConfigBuilder()
       .pickListValidation(false)
       .autoRefreshFields(true)
       .build();
@@ -101,7 +88,7 @@ class Initializer {
     /*
      * The path containing the absolute directory path to store user specific JSON files containing module fields information.
      */
-    let resourcePath = `${USER_DIR}/zoho`;
+    const resourcePath = `${USER_DIR}/zoho`;
 
     /*
      * Call the static initialize method of Initializer class that takes the following arguments

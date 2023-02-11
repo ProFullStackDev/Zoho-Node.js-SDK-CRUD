@@ -1,0 +1,5 @@
+{
+  "SDK": "@zohocrm/nodejs-sdk-2.0",
+  "SDK_API": "@zohocrm/nodejs-sdk-2.0/core/com/zoho/crm/api",
+  "LOCAL_BASE_DIR": "C://Users"
+}

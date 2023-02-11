@@ -1,14 +1,15 @@
 const Initializer = require("./initializer");
+const recordRouter = require("./router/RecordRouter");
 const express = require("express");
 const cors = require("cors");
-const PORT = 3030;
-
-const contactRouter = require("./router/ContactRouter");
 
 const app = express();
+const PORT = process.env.PORT || 3030;
+
 app.use(cors());
 app.use(express.json());
-app.use("/contact", contactRouter);
+app.use("/", recordRouter);
+
 Initializer.initialize();
 
 app.listen(PORT, () => {
