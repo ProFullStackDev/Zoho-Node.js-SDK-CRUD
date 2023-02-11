@@ -1,8 +1,5 @@
 const { SDK, SDK_API } = require(`../../config`);
-const {
-  RecordOperations,
-  DeleteRecordsParam,
-} = require(`${SDK_API}/record/record_operations`);
+const { RecordOperations, DeleteRecordsParam } = require(`${SDK_API}/record/record_operations`);
 const { HeaderMap } = require(`${SDK}/routes/header_map`);
 const { ParameterMap } = require(`${SDK}/routes/parameter_map`);
 
@@ -17,12 +14,12 @@ const deleteRecord = async (module, recordId) => {
   const recordOperations = new RecordOperations();
 
   //Get instance of ParameterMap Class
-  let paramInstance = new ParameterMap();
+  const paramInstance = new ParameterMap();
   await paramInstance.add(DeleteRecordsParam.IDS, recordId);
   await paramInstance.add(DeleteRecordsParam.WF_TRIGGER, true);
 
   //Get instance of HeaderMap Class
-  let headerInstance = new HeaderMap();
+  const headerInstance = new HeaderMap();
 
   //Call deleteRecords method that takes paramInstance and moduleAPIName as parameter.
   await recordOperations.deleteRecords(module, paramInstance, headerInstance);

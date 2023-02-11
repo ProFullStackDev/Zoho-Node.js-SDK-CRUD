@@ -42,13 +42,13 @@ const getRecords = async (module) => {
           `Mobile`,
           `Created_Time`,
         ];
-        let contacts = [];
+        const contacts = [];
 
         for (let record of records) {
-          let keyValues = record.getKeyValues();
-          let contact = {};
+          const keyValues = record.getKeyValues();
+          const contact = {};
           for (let keyName of keyArray) {
-            let value = keyValues.get(keyName);
+            const value = keyValues.get(keyName);
             if (value) contact[keyName] = value;
 
             // Convert BigInt to String
