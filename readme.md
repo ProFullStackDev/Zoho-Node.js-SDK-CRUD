@@ -2,7 +2,7 @@
 ## 📌CRUD Operation using Zoho Node.js SDK(v2)
                 
 
-### 1. Basic Prerequirements
+### 1. Basic Prerequisites
 - Create a Zoho CRM account.  
 https://crm.zoho.com/
 - Create a Zoho API Console account.  
