@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const recordController = require("../controllers/RecordController");
+const { Record } = require("../controllers/RecordController/testRecord");
 
 // Import capitalize function
 require("../utils/string");
@@ -58,6 +59,13 @@ router.get("/:module/delete/:recordId", async (req, res) => {
       error: error.message,
     });
   }
+});
+
+router.get("/:module/test", async (req, res) => {
+  await Record.createRecords();
+  res.status(200).json({
+    success: "test record is executed successfully",
+  });
 });
 
 module.exports = router;

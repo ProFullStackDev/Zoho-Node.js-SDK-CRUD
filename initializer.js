@@ -15,6 +15,7 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const CLIENT_EMAIL = process.env.CLIENT_EMAIL;
 const CLIENT_NAME = process.env.CLIENT_NAME;
 const GRANT_TOKEN = process.env.GRANT_TOKEN;
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 const REDIRECT_URL = process.env.REDIRECT_URL;
 const USER_DIR = `${LOCAL_BASE_DIR}/${CLIENT_NAME}`;
 
@@ -56,7 +57,8 @@ class Initializer {
     const token = new OAuthBuilder()
       .clientId(CLIENT_ID)
       .clientSecret(CLIENT_SECRET)
-      .grantToken(GRANT_TOKEN)
+      .refreshToken(REFRESH_TOKEN)
+      // .grantToken(GRANT_TOKEN)
       .redirectURL(REDIRECT_URL)
       .build();
 
