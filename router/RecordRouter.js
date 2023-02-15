@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const recordController = require("../controllers/RecordController");
-const { Record } = require("../controllers/RecordController/testRecord");
 
 // Import capitalize function
 require("../utils/string");
